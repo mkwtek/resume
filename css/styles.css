@@ -10957,11 +10957,22 @@ section.resume-section .resume-section-content {
   width: 100%;
 }
 
+/* This creates inconsistent section spacing vertically between the headings as its 100vh so overriding it in media query after for specific sections */
 @media (min-width: 768px) {
   section.resume-section {
     min-height: 100vh;
   }
 }
+
+/* Added new class to override the media query above when a section heading desires a shorter gap above it */
+@media (min-width: 768px) {
+  /* This rule is MORE specific and therefore takes precedence. */
+  section.resume-section.resume-section-short {
+    /* Unset makes the height determined by content and padding. */
+    min-height: unset; 
+  }
+}
+
 @media (min-width: 992px) {
   section.resume-section {
     padding-left: 3rem;
