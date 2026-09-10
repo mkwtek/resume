@@ -24,6 +24,15 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
+    // Landing "build" sequence safety net: once the sequence has had time to
+    // finish, add .build-done so a stalled animation can't leave the name or
+    // bio stuck hidden. Harmless if the animation already ran.
+    if (document.documentElement.classList.contains('js-build')) {
+        window.setTimeout(function () {
+            document.documentElement.classList.add('build-done');
+        }, 2600);
+    }
+
     // Scroll reveal: flip .is-visible on each .reveal element once it enters view,
     // then stop observing it. Reduced-motion or no IntersectionObserver: reveal all.
     const revealEls = document.querySelectorAll('.reveal');
