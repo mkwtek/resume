@@ -11346,96 +11346,107 @@ section.resume-section .resume-section-content {
 
 /* ==========================================================================
    Landing "build" sequence
-   The hero assembles itself on load, like a project coming together on a shop
-   floor: the name and title slide in and lock, an accent line welds across
-   under the name, the bio settles in, and the link icons drop in like bolts
-   being torqued down. The sidebar photo drops into its ring.
+   The hero assembles itself on load: the name lands letter by letter from
+   scattered directions, the title slides in, an accent rule draws across
+   under it, the bio and contact line settle in, and the link icons fly in
+   from random directions. scripts.js (runBuildSequence) picks the entry
+   vector, easing and delay for each piece, jittered so no two loads match.
 
    Gated by .js-build (added to <html> before first paint). No JS, or
-   prefers-reduced-motion: everything renders in its final state.
+   prefers-reduced-motion: everything renders in its final state, and the
+   accent rule is simply present.
    ========================================================================== */
 
-/* Permanent accent rule under the name (also the thing that "welds" in). */
-.name-weld {
-  width: 5.5rem;
+/* Accent rule under the title. Spans the full width of the title text and,
+   on load, draws across from the left. */
+#about h2 {
+  display: inline-block;
+  position: relative;
+}
+#about h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.55rem;
   height: 3px;
-  margin: 0.85rem 0 1.4rem;
   border-radius: 2px;
   background: #177082;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .js-build .build-part {
-    opacity: 0;
-    animation: build-slide-in 0.55s cubic-bezier(0.2, 0.9, 0.1, 1) both;
-    animation-delay: var(--build-delay, 0s);
+  /* Pieces fly in from off to the side; clip horizontally so they can't push
+     out a scrollbar mid-animation. overflow-x: clip (not hidden) leaves the
+     vertical flow and margins alone, so nothing shifts when it's removed. */
+  .js-build:not(.build-done) .hero-content {
+    overflow-x: clip;
   }
 
-  .js-build .name-weld {
+  /* Pre-paint hidden state, scoped to the hero (via .hero-content) so section
+     titles elsewhere are untouched. Kept to class specificity so the
+     .build-in rule below can override on equal footing, source order winning. */
+  .js-build .hero-content h1,
+  .js-build .hero-content h2,
+  .js-build .hero-content .subheading,
+  .js-build .hero-content p.lead,
+  .js-build .hero-content .social-icon,
+  .js-build .hero-content .social-icon-label,
+  .js-build .img-profile,
+  .js-build .build-el {
+    opacity: 0;
+  }
+
+  /* Landed state. runBuildSequence sets the per-element start transform inline
+     and the --build-* custom properties, then adds .build-in to transition
+     home. */
+  .js-build .build-el.build-in {
+    opacity: 1;
+    transform: none !important;
+    filter: blur(0) !important;
+    transition:
+      opacity 0.5s ease,
+      transform var(--build-dur, 0.7s) var(--build-ease, cubic-bezier(0.2, 0.85, 0.3, 1.2)),
+      filter 0.6s ease;
+    transition-delay: var(--build-delay, 0s);
+  }
+
+  /* Title accent rule: draws left to right once the title has landed. */
+  .js-build #about h2::after {
     transform: scaleX(0);
     transform-origin: left center;
-    animation: build-weld 0.4s ease-out both;
-    animation-delay: var(--build-delay, 0s);
+  }
+  .js-build #about h2.title-drawn::after {
+    transform: scaleX(1);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--draw-delay, 0.7s);
   }
 
-  /* The link icons: animate the inner circle, not .social-icon-item (which
-     carries the hover lift), so nothing is left overriding :hover. */
-  .js-build .social-icon {
-    animation: build-bolt-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-    animation-delay: var(--build-delay, 0s);
+  /* Safety net: .build-done (from the script, or a 5s failsafe in the <head>)
+     forces the final state if the sequence ever stalls. */
+  .js-build.build-done .hero-content h1,
+  .js-build.build-done .hero-content h2,
+  .js-build.build-done .hero-content .subheading,
+  .js-build.build-done .hero-content p.lead,
+  .js-build.build-done .hero-content .social-icon,
+  .js-build.build-done .hero-content .social-icon-label,
+  .js-build.build-done .img-profile,
+  .js-build.build-done .build-el {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
   }
-  .js-build .social-icon-item:nth-child(1) .social-icon { --build-delay: 0.62s; }
-  .js-build .social-icon-item:nth-child(2) .social-icon { --build-delay: 0.72s; }
-  .js-build .social-icon-item:nth-child(3) .social-icon { --build-delay: 0.82s; }
-  .js-build .social-icon-item:nth-child(4) .social-icon { --build-delay: 0.92s; }
-  .js-build .social-icon-label {
-    opacity: 0;
-    animation: build-fade-in 0.4s ease-out both;
-    animation-delay: var(--label-delay, 1s);
-  }
-  .js-build .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 0.78s; }
-  .js-build .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 0.88s; }
-  .js-build .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 0.98s; }
-  .js-build .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 1.08s; }
-
-  /* Sidebar photo drops into place (desktop only; hidden below 992px). */
-  .js-build #sideNav .img-profile {
-    animation: build-drop-in 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) both;
-    animation-delay: 0.15s;
-  }
-
-  /* Safety: if animations somehow never run to completion, force visible. */
-  .js-build.build-done .build-part,
-  .js-build.build-done .social-icon,
-  .js-build.build-done .social-icon-label,
-  .js-build.build-done #sideNav .img-profile {
-    opacity: 1;
-    animation: none;
-  }
-  .js-build.build-done .name-weld {
-    transform: none;
-    animation: none;
+  .js-build.build-done #about h2::after {
+    transform: scaleX(1) !important;
   }
 }
 
-@keyframes build-slide-in {
-  0%   { opacity: 0; transform: translateX(-26px); }
-  70%  { opacity: 1; transform: translateX(3px); }
-  100% { opacity: 1; transform: translateX(0); }
+/* Letters are wrapped by the script; keep words unbreakable and glyphs
+   transformable. */
+.build-word {
+  display: inline-block;
+  white-space: nowrap;
 }
-@keyframes build-weld {
-  to { transform: scaleX(1); }
-}
-@keyframes build-bolt-in {
-  0%   { opacity: 0; transform: translateY(-16px) scale(0.55) rotate(-14deg); }
-  100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
-}
-@keyframes build-drop-in {
-  0%   { opacity: 0; transform: translateY(-38px) scale(0.9); }
-  60%  { opacity: 1; transform: translateY(6px) scale(1.02); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes build-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.build-letter {
+  display: inline-block;
 }
