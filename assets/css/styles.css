@@ -10984,6 +10984,11 @@ p.lead {
     column-gap: 0.75rem;
     padding-left: 1.15rem;
     padding-right: 0.9rem;
+    /* Separator under the header row (name + hamburger). When the menu is
+       collapsed this sits right under the header; when it's open the header
+       separator role passes to #navbarResponsive's border-top and this line
+       caps the bottom of the open menu - the portfolio site's treatment. */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   }
   /* Brand shrinks and truncates before it can push the toggler onto a second
      row; only the collapse menu wraps below. */
@@ -11003,6 +11008,8 @@ p.lead {
   }
   #sideNav #navbarResponsive {
     flex-basis: 100%;
+    /* Keeps the header separator visible once the open menu pushes below it. */
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -11299,14 +11306,21 @@ section.resume-section .resume-section-content {
   #sideNav #navbarResponsive {
     margin-left: -1.15rem;
     margin-right: -0.9rem;
+    /* Cancel #sideNav's bottom padding so the border-bottom hugs the last nav
+       item when the menu is open (matches the portfolio's flush accent line). */
+    margin-bottom: -0.5rem;
   }
   #sideNav .navbar-nav {
     width: 100%;
-    margin-top: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-top: 0.4rem;
   }
+  /* Hairline dividers between items; the strong lines top and bottom of the
+     menu are the header separator and the #sideNav border-bottom. */
   #sideNav .navbar-nav .nav-item {
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  #sideNav .navbar-nav .nav-item:last-child {
+    border-bottom: none;
   }
   #sideNav .navbar-nav .nav-link {
     display: block;
