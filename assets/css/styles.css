@@ -10965,7 +10965,6 @@ p.lead {
 #sideNav {
   padding-left: 1rem;
   padding-right: 1rem;
-  text-align: center;
 }
 #sideNav .navbar-nav .nav-item .nav-link {
   font-weight: 800;
@@ -10973,24 +10972,30 @@ p.lead {
   text-transform: uppercase;
 }
 
-/* Mobile header: 3-column grid (spacer / centered brand / toggler) so text centers on the true bar width, not just the leftover space next to the hamburger */
+/* Mobile header: brand name on the left, hamburger on the right, with real gutters -  */
+/* the brand can shrink (min-width: 0) rather than shove the toggler off the edge.      */
 @media (max-width: 991.98px) {
   #sideNav {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 2.25rem;
+    display: flex;
     align-items: center;
-    column-gap: 0.5rem;
+    justify-content: space-between;
+    column-gap: 0.75rem;
+    padding-left: 1.15rem;
+    padding-right: 0.9rem;
   }
   #sideNav .navbar-brand {
-    grid-column: 2;
-    text-align: center;
     margin-right: 0;
+    min-width: 0;
+    text-align: left;
+  }
+  #sideNav .navbar-brand span {
+    white-space: nowrap;
   }
   #sideNav .navbar-toggler {
-    grid-column: 3;
+    flex: 0 0 auto;
   }
   #sideNav #navbarResponsive {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
   }
 }
 
@@ -11233,4 +11238,64 @@ section.resume-section .resume-section-content {
   font-weight: 700;
   font-display: swap;
   src: url("../fonts/saira-700.woff2") format("woff2");
+}
+
+/* ==========================================================================
+   Polish pass: matches the portfolio site's treatment
+   ========================================================================== */
+
+/* Scroll reveal: elements marked .reveal start hidden and fade + rise in as they
+   enter the viewport (JS in scripts.js toggles .is-visible). The hidden state only
+   applies under .js-reveal (set by the inline head script), so a no-JS page shows
+   everything normally. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.js-reveal .reveal:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Centre the recommendation callouts in their column. */
+.recommendation {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mobile (below the 992px sidebar breakpoint): centre the section titles and the
+   social row, and keep the social icons inside the gutters on narrow phones. */
+@media (max-width: 991.98px) {
+  /* h2.mb-5 is the section title ("Experience", "Certifications", ...); the About
+     section's h2 has no mb-5 and stays part of the left-aligned name block. */
+  .resume-section-content > h2.mb-5 {
+    text-align: center;
+  }
+  .social-icons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 575.98px) {
+  .social-icons {
+    gap: 1rem;
+  }
+  .social-icons .social-icon {
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.3rem;
+  }
 }

@@ -24,6 +24,50 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
+    // Scroll reveal: flip .is-visible on each .reveal element once it enters view,
+    // then stop observing it. Reduced-motion or no IntersectionObserver: reveal all.
+    const revealEls = document.querySelectorAll('.reveal');
+    if (revealEls.length) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) {
+            revealEls.forEach(el => el.classList.add('is-visible'));
+        } else {
+            const io = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+            revealEls.forEach(el => io.observe(el));
+
+            // Fallback: reveal anything already in view, in case the observer never
+            // delivers (e.g. the page finished loading while its tab was hidden).
+            const revealInView = () => {
+                document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
+                    const r = el.getBoundingClientRect();
+                    if (r.top < window.innerHeight * 0.9 && r.bottom > 0) {
+                        el.classList.add('is-visible');
+                    }
+                });
+            };
+            let ticking = false;
+            const onScroll = () => {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => { ticking = false; revealInView(); });
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('load', revealInView);
+            window.addEventListener('pageshow', revealInView);
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) revealInView();
+            });
+            revealInView(); // reveal whatever is already above the fold right away
+        }
+    }
+
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
