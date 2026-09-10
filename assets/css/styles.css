@@ -11424,25 +11424,30 @@ section.resume-section .resume-section-content {
     animation: hero-reveal-x var(--seg-dur, 0.5s) cubic-bezier(0.4, 0, 0.15, 1) var(--seg-delay, 0s) both;
   }
   .js-build.build-in #about h2::after {
-    animation: hero-line-draw 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 1.85s both;
+    animation: hero-line-draw 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 2.35s both;
   }
   .js-build.build-in .hero-content p.lead {
-    animation: hero-fade-up 0.55s ease-out 2.45s both;
+    animation: hero-fade-up 0.55s ease-out 3.9s both;
   }
-  .js-build.build-in .hero-content .social-icon {
-    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 2.75s) both;
+
+  /* The link icons sit low in the hero (below the fold on phones), so they
+     don't run on the build-in timer. scripts.js adds .icons-in when they
+     scroll into view - or, if they're already visible at load, once the rest
+     of the hero has finished. Short internal stagger, no upfront offset. */
+  .js-build .social-icons.icons-in .social-icon {
+    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 0s) both;
   }
-  .js-build.build-in .hero-content .social-icon-label {
-    animation: hero-fade 0.35s ease-out var(--label-delay, 2.9s) both;
+  .js-build .social-icons.icons-in .social-icon-label {
+    animation: hero-fade 0.35s ease-out var(--label-delay, 0.15s) both;
   }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon { --pop-delay: 2.75s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon { --pop-delay: 2.85s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon { --pop-delay: 2.95s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon { --pop-delay: 3.05s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 2.90s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 3.00s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 3.10s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 3.20s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon { --pop-delay: 0s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon { --pop-delay: 0.09s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon { --pop-delay: 0.18s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon { --pop-delay: 0.27s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 0.12s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 0.21s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 0.30s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 0.39s; }
 
   /* The left sidebar holds back until the main column is well underway (bio in,
      icons starting), then the photo Ken-Burns in and the nav items slide in. */
@@ -11468,11 +11473,9 @@ section.resume-section .resume-section-content {
   }
 
   /* Safety net: .build-done (from the script, or the <head> failsafe) forces
-     the final state if the sequence ever stalls. */
+     the final state of the timed pieces if the sequence ever stalls. */
   .js-build.build-done .hero-content .hero-seg,
   .js-build.build-done .hero-content p.lead,
-  .js-build.build-done .hero-content .social-icon,
-  .js-build.build-done .hero-content .social-icon-label,
   .js-build.build-done #sideNav .img-profile,
   .js-build.build-done #navbarResponsive .nav-link {
     opacity: 1 !important;
@@ -11483,6 +11486,13 @@ section.resume-section .resume-section-content {
   .js-build.build-done #about h2::after {
     animation: none !important;
     transform: scaleX(1) !important;
+  }
+  /* Icons are scroll-triggered, not timed - build-done only un-hides them (for
+     the case where the script died entirely). It deliberately does NOT stop
+     their animation, so a normal scroll-into-view still pops them. */
+  .js-build.build-done .hero-content .social-icon,
+  .js-build.build-done .hero-content .social-icon-label {
+    opacity: 1;
   }
 }
 

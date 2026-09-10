@@ -96,10 +96,11 @@ window.addEventListener('DOMContentLoaded', event => {
 // ---------------------------------------------------------------------------
 // The choreography lives in CSS (styles.css, "Landing build sequence"): each
 // hero piece has its own keyframes and a baked-in delay, all gated on
-// .js-build.build-in. This just fires the starting gun and, ~3s later, adds
-// .build-done to drop the hidden-state rules. prefers-reduced-motion: skip
-// straight to done. A <head> failsafe also adds .build-done after 5s in case
-// this never runs.
+// .js-build.build-in. This fires the starting gun, reveals the link icons when
+// they scroll into view (they're below the fold on phones), and ~5.6s later
+// adds .build-done to drop the hidden-state rules. prefers-reduced-motion:
+// skip straight to done. A <head> failsafe also adds .build-done after 6.5s in
+// case this never runs.
 // ===========================================================================
 function runBuildSequence() {
     var root = document.documentElement;
@@ -110,6 +111,8 @@ function runBuildSequence() {
         return;
     }
 
+    var start = Date.now();
+
     // Start on the next frame so the pre-paint hidden state is committed first.
     requestAnimationFrame(function () {
         requestAnimationFrame(function () {
@@ -117,9 +120,32 @@ function runBuildSequence() {
         });
     });
 
+    // Link icons: reveal on scroll-into-view rather than on the timer, since
+    // they're usually below the fold on phones. If they're already on screen
+    // at load (desktop), hold them until the rest of the hero has finished so
+    // they still come in last.
+    var icons = document.querySelector('#about .social-icons');
+    if (icons) {
+        var revealIcons = function () { icons.classList.add('icons-in'); };
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries, obs) {
+                if (!entries[0].isIntersecting) return;
+                obs.disconnect();
+                var elapsed = Date.now() - start;
+                // On screen within the first moment => it was visible at load,
+                // hold to ~4.4s. Otherwise the user scrolled to it: reveal now.
+                var wait = elapsed < 1500 ? Math.max(0, 4400 - elapsed) : 0;
+                window.setTimeout(revealIcons, wait);
+            }, { threshold: 0.2 });
+            io.observe(icons);
+        } else {
+            window.setTimeout(revealIcons, 4400);
+        }
+    }
+
     // End once the last piece has landed (see the delays in styles.css), which
     // drops the hidden-state and animation rules so nothing lingers.
     window.setTimeout(function () {
         root.classList.add('build-done');
-    }, 5300);
+    }, 5600);
 }
