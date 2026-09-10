@@ -11444,27 +11444,27 @@ section.resume-section .resume-section-content {
   .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 3.10s; }
   .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 3.20s; }
 
-  /* The whole left sidebar holds back until the main column is done through the
-     icons, then the photo and nav slide in. */
+  /* The left sidebar holds back until the main column is well underway (bio in,
+     icons starting), then the photo Ken-Burns in and the nav items slide in. */
   @media (min-width: 992px) {
     .js-build #sideNav .img-profile,
     .js-build #navbarResponsive .nav-link {
       opacity: 0;
     }
     .js-build.build-in #sideNav .img-profile {
-      animation: hero-kenburns 1.4s ease-out 3.4s both;
+      animation: hero-kenburns 1.4s ease-out 2.7s both;
     }
     .js-build.build-in #navbarResponsive .nav-link {
-      animation: hero-slide-right 0.32s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 3.6s) both;
+      animation: hero-slide-right 0.32s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 2.9s) both;
     }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 3.60s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 3.67s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 3.74s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 3.81s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 3.88s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 3.95s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 4.02s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 4.09s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 2.90s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 2.97s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 3.04s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 3.11s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 3.18s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 3.25s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 3.32s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 3.39s; }
   }
 
   /* Safety net: .build-done (from the script, or the <head> failsafe) forces
