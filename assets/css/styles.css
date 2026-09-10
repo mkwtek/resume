@@ -11289,6 +11289,30 @@ section.resume-section .resume-section-content {
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  /* Expanded mobile menu: full-bleed stacked rows, centred labels, hairline
+     dividers between items - the portfolio site's treatment. */
+  #sideNav #navbarResponsive {
+    margin-left: -1.15rem;
+    margin-right: -0.9rem;
+  }
+  #sideNav .navbar-nav {
+    width: 100%;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  #sideNav .navbar-nav .nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  #sideNav .navbar-nav .nav-link {
+    display: block;
+    text-align: center;
+    padding: 0.85rem 1rem;
+  }
+  #sideNav .navbar-nav .nav-link:hover,
+  #sideNav .navbar-nav .nav-link:focus-within {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
 }
 
 /* Phones: the contact subheading stacks one item per line instead of wrapping
