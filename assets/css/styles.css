@@ -11362,6 +11362,14 @@ section.resume-section .resume-section-content {
    everything is simply present, accent rule included.
    ========================================================================== */
 
+/* The name and title reveal left to right on load. Their text is wrapped in a
+   .hero-text span that clip-paths independently of the <h2> (so the accent
+   rule below, an h2::after, is never clipped). */
+#about h1 .hero-text,
+#about h2 .hero-text {
+  display: inline-block;
+}
+
 /* Accent rule under the title: spans the full title width, drawn on from the
    left. The space below the title sits the rule roughly midway between the
    title and the contact line rather than crammed against the latter. */
@@ -11390,8 +11398,8 @@ section.resume-section .resume-section-content {
 
   /* Pre-paint hidden state, scoped to the hero so section titles elsewhere are
      untouched. */
-  .js-build .hero-content h1,
-  .js-build .hero-content h2,
+  .js-build .hero-content h1 .hero-text,
+  .js-build .hero-content h2 .hero-text,
   .js-build .hero-content .subheading,
   .js-build .hero-content p.lead,
   .js-build .hero-content .social-icon,
@@ -11405,35 +11413,35 @@ section.resume-section .resume-section-content {
 
   /* .build-in on <html> is the "go" signal; each piece then runs its own
      keyframes on a baked-in delay. `both` fill holds the start and end. */
-  .js-build.build-in .hero-content h1 {
-    animation: hero-name-drop 0.6s cubic-bezier(0.5, 0, 0.7, 0.35) 0.1s both;
+  .js-build.build-in .hero-content h1 .hero-text {
+    animation: hero-reveal-x 0.5s cubic-bezier(0.4, 0, 0.15, 1) 0.12s both;
   }
-  .js-build.build-in .hero-content h2 {
-    animation: hero-rise 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) 0.6s both;
+  .js-build.build-in .hero-content h2 .hero-text {
+    animation: hero-reveal-x 0.5s cubic-bezier(0.4, 0, 0.15, 1) 0.62s both;
   }
   .js-build.build-in #about h2::after {
-    animation: hero-line-draw 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 1.05s both;
+    animation: hero-line-draw 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) 1.05s both;
   }
   .js-build.build-in .hero-content .subheading {
-    animation: hero-wipe-right 0.7s ease-out 1.2s both;
+    animation: hero-wipe-right 0.6s ease-out 1.3s both;
   }
   .js-build.build-in .hero-content p.lead {
-    animation: hero-fade-up 0.6s ease-out 1.55s both;
+    animation: hero-fade-up 0.55s ease-out 1.65s both;
   }
   .js-build.build-in .hero-content .social-icon {
-    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 1.8s) both;
+    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 1.85s) both;
   }
   .js-build.build-in .hero-content .social-icon-label {
-    animation: hero-fade 0.35s ease-out var(--label-delay, 1.95s) both;
+    animation: hero-fade 0.35s ease-out var(--label-delay, 2s) both;
   }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon { --pop-delay: 1.80s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon { --pop-delay: 1.92s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon { --pop-delay: 2.04s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon { --pop-delay: 2.16s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 1.95s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 2.07s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 2.19s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 2.31s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon { --pop-delay: 1.85s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon { --pop-delay: 1.95s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon { --pop-delay: 2.05s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon { --pop-delay: 2.15s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 2.00s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 2.10s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 2.20s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 2.30s; }
 
   @media (min-width: 992px) {
     .js-build #sideNav .img-profile,
@@ -11441,25 +11449,25 @@ section.resume-section .resume-section-content {
       opacity: 0;
     }
     .js-build.build-in #sideNav .img-profile {
-      animation: hero-kenburns 1.3s ease-out 0.75s both;
+      animation: hero-kenburns 1.2s ease-out 0.5s both;
     }
     .js-build.build-in #navbarResponsive .nav-link {
-      animation: hero-slide-right 0.32s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 1.85s) both;
+      animation: hero-slide-right 0.3s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 1.45s) both;
     }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 1.85s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 1.91s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 1.97s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 2.03s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 2.09s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 2.15s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 2.21s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 2.27s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 1.45s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 1.51s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 1.57s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 1.63s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 1.69s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 1.75s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 1.81s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.87s; }
   }
 
   /* Safety net: .build-done (from the script, or the 5s <head> failsafe)
      forces the final state if the sequence ever stalls. */
-  .js-build.build-done .hero-content h1,
-  .js-build.build-done .hero-content h2,
+  .js-build.build-done .hero-content h1 .hero-text,
+  .js-build.build-done .hero-content h2 .hero-text,
   .js-build.build-done .hero-content .subheading,
   .js-build.build-done .hero-content p.lead,
   .js-build.build-done .hero-content .social-icon,
@@ -11477,16 +11485,9 @@ section.resume-section .resume-section-content {
   }
 }
 
-@keyframes hero-name-drop {
-  0%   { opacity: 0; transform: translateY(-90px); }
-  55%  { opacity: 1; }
-  78%  { transform: translateY(7px); }
-  90%  { transform: translateY(-2px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes hero-rise {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes hero-reveal-x {
+  from { opacity: 1; clip-path: inset(0 100% 0 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
 }
 @keyframes hero-line-draw {
   from { transform: scaleX(0); }
