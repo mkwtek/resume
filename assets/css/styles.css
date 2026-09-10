@@ -3890,11 +3890,12 @@ textarea.form-control-lg {
   box-shadow: 0 0 0 var(--bs-navbar-toggler-focus-width);
 }
 
-/* Custom bar-based hamburger, replaces Bootstrap's default icon */
+/* Custom bar-based hamburger, replaces Bootstrap's default icon. Sized to match
+   the portfolio site's burger (2rem x 1.4rem). */
 .navbar-toggler {
   position: relative;
-  width: 2.25rem;
-  height: 1.6rem;
+  width: 2rem;
+  height: 1.4rem;
   padding: 0;
 }
 .navbar-toggler .bar {
@@ -10977,16 +10978,22 @@ p.lead {
 @media (max-width: 991.98px) {
   #sideNav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     column-gap: 0.75rem;
     padding-left: 1.15rem;
     padding-right: 0.9rem;
   }
+  /* Brand shrinks and truncates before it can push the toggler onto a second
+     row; only the collapse menu wraps below. */
   #sideNav .navbar-brand {
-    margin-right: 0;
+    flex: 1 1 auto;
     min-width: 0;
+    margin-right: 0;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   #sideNav .navbar-brand span {
     white-space: nowrap;
@@ -11281,6 +11288,25 @@ section.resume-section .resume-section-content {
   .social-icons {
     justify-content: center;
     flex-wrap: wrap;
+  }
+}
+
+/* Phones: the contact subheading stacks one item per line instead of wrapping
+   mid-phrase. */
+@media (max-width: 767.98px) {
+  .subheading .meta-item {
+    display: block;
+  }
+  .subheading .meta-sep {
+    display: none;
+  }
+}
+
+/* Very narrow: drop the "- Resume" tag from the header brand so the name and the
+   hamburger always fit on one line. */
+@media (max-width: 430px) {
+  #sideNav .brand-subtext {
+    display: none;
   }
 }
 @media (max-width: 575.98px) {
