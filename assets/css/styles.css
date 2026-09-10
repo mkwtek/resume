@@ -11349,30 +11349,24 @@ section.resume-section .resume-section-content {
 }
 
 /* ==========================================================================
-   Landing "build" sequence
-   On load the hero assembles itself in order: the name drops in from above and
-   lands hard, the title rises in beneath it, the accent rule draws across, the
-   contact line wipes in left to right, the bio fades up, then the link icons
-   pop in one by one. In parallel, just after the name lands, the sidebar photo
-   fades in with a slow Ken Burns zoom-out and the nav items slide in from the
-   left in quick succession.
+   Landing hero animation
+   A quick staggered cascade on load: name and sidebar together, then title,
+   then the accent rule draws, then the contact line and bio; the link icons
+   reveal on scroll-into-view. Whole thing is in by ~1.3s.
 
    Gated by .js-build (on <html> before first paint). scripts.js adds .build-in
    to start it and .build-done to end it. No JS or prefers-reduced-motion:
    everything is simply present, accent rule included.
    ========================================================================== */
 
-/* The name, title and contact line reveal left to right on load, in segments
-   with a beat between them: "Matt" then "Whitcomb"; "Web Developer" then
-   "/ Digital Consultant"; the location then the phone/email. Each segment is a
-   .hero-seg span with its own --seg-delay (set inline in the markup). They clip
-   independently of the <h2> so the accent rule (an h2::after) is never
-   touched. */
+/* Each animated line (name, title, contact line) is wrapped in one .hero-seg
+   span carrying its --seg-delay, so it can reveal without disturbing the
+   <h2>'s accent rule (an h2::after). */
 #about .hero-seg {
   display: inline-block;
 }
 @media (max-width: 767.98px) {
-  /* Stack the two contact-line segments so each still reveals as its own row. */
+  /* The contact line's meta-items stack; the wrapper goes block to match. */
   #about .subheading .hero-seg {
     display: block;
   }
@@ -11430,10 +11424,10 @@ section.resume-section .resume-section-content {
     animation-timing-function: ease-out;
   }
   .js-build.build-in #about h2::after {
-    animation: hero-line-draw 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) 1.45s both;
+    animation: hero-line-draw 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) 0.6s both;
   }
   .js-build.build-in .hero-content p.lead {
-    animation: hero-fade-up 0.4s ease-out 2.45s both;
+    animation: hero-fade-up 0.4s ease-out 0.8s both;
   }
 
   /* The link icons sit low in the hero (below the fold on phones), so they
@@ -11455,27 +11449,27 @@ section.resume-section .resume-section-content {
   .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 0.24s; }
   .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 0.31s; }
 
-  /* The left sidebar comes in a touch behind the main column: the photo
-     Ken-Burns in and the nav items slide in. */
+  /* The left sidebar comes in with the name: photo Ken-Burns in, nav items
+     slide in right behind it. */
   @media (min-width: 992px) {
     .js-build #sideNav .img-profile,
     .js-build #navbarResponsive .nav-link {
       opacity: 0;
     }
     .js-build.build-in #sideNav .img-profile {
-      animation: hero-kenburns 0.9s ease-out 1.3s both;
+      animation: hero-kenburns 0.9s ease-out 0.1s both;
     }
     .js-build.build-in #navbarResponsive .nav-link {
-      animation: hero-slide-right 0.26s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 1.55s) both;
+      animation: hero-slide-right 0.26s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 0.1s) both;
     }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 1.55s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 1.60s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 1.65s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 1.70s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 1.75s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 1.80s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 1.85s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.90s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 0.10s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 0.14s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 0.18s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 0.22s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 0.26s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 0.30s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 0.34s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 0.38s; }
   }
 
   /* Safety net: .build-done (from the script, or the <head> failsafe) forces
