@@ -11008,7 +11008,10 @@ p.lead {
   }
   #sideNav #navbarResponsive {
     flex-basis: 100%;
-    /* Keeps the header separator visible once the open menu pushes below it. */
+    /* Keeps the header separator visible once the open menu pushes below it.
+       The margin-top replaces #sideNav's bottom padding, which the border-top
+       would otherwise skip - without it the line jumps up ~8px on open. */
+    margin-top: 0.5rem;
     border-top: 2px solid rgba(255, 255, 255, 0.5);
   }
 }
