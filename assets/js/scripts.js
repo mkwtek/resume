@@ -24,10 +24,11 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
-    // Landing "build" sequence: the hero assembles itself on load (name drops
-    // in, title rises, accent rule draws, contact line wipes in, bio fades,
-    // icons pop; photo Ken-Burns and nav slide in alongside). Choreography is
-    // in styles.css; this just starts it and ends it.
+    // Landing "build" sequence: the hero assembles itself on load. The name,
+    // title and contact line reveal left to right in segments with a beat
+    // between each; then the accent rule draws, the bio fades, the icons pop;
+    // the photo Ken-Burns and nav slide in alongside. Choreography is in
+    // styles.css; this just starts it and ends it.
     runBuildSequence();
 
     // Scroll reveal: flip .is-visible on each .reveal element once it enters view,
@@ -119,5 +120,5 @@ function runBuildSequence() {
     // drops the hidden-state and animation rules so nothing lingers.
     window.setTimeout(function () {
         root.classList.add('build-done');
-    }, 3000);
+    }, 5300);
 }

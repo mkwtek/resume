@@ -11362,12 +11362,20 @@ section.resume-section .resume-section-content {
    everything is simply present, accent rule included.
    ========================================================================== */
 
-/* The name and title reveal left to right on load. Their text is wrapped in a
-   .hero-text span that clip-paths independently of the <h2> (so the accent
-   rule below, an h2::after, is never clipped). */
-#about h1 .hero-text,
-#about h2 .hero-text {
+/* The name, title and contact line reveal left to right on load, in segments
+   with a beat between them: "Matt" then "Whitcomb"; "Web Developer" then
+   "/ Digital Consultant"; the location then the phone/email. Each segment is a
+   .hero-seg span with its own --seg-delay (set inline in the markup). They clip
+   independently of the <h2> so the accent rule (an h2::after) is never
+   touched. */
+#about .hero-seg {
   display: inline-block;
+}
+@media (max-width: 767.98px) {
+  /* Stack the two contact-line segments so each still reveals as its own row. */
+  #about .subheading .hero-seg {
+    display: block;
+  }
 }
 
 /* Accent rule under the title: spans the full title width, drawn on from the
@@ -11398,9 +11406,7 @@ section.resume-section .resume-section-content {
 
   /* Pre-paint hidden state, scoped to the hero so section titles elsewhere are
      untouched. */
-  .js-build .hero-content h1 .hero-text,
-  .js-build .hero-content h2 .hero-text,
-  .js-build .hero-content .subheading,
+  .js-build .hero-content .hero-seg,
   .js-build .hero-content p.lead,
   .js-build .hero-content .social-icon,
   .js-build .hero-content .social-icon-label {
@@ -11412,36 +11418,31 @@ section.resume-section .resume-section-content {
   }
 
   /* .build-in on <html> is the "go" signal; each piece then runs its own
-     keyframes on a baked-in delay. `both` fill holds the start and end. */
-  .js-build.build-in .hero-content h1 .hero-text {
-    animation: hero-reveal-x 0.5s cubic-bezier(0.4, 0, 0.15, 1) 0.12s both;
-  }
-  .js-build.build-in .hero-content h2 .hero-text {
-    animation: hero-reveal-x 0.5s cubic-bezier(0.4, 0, 0.15, 1) 0.62s both;
+     keyframes on a baked-in delay. `both` fill holds the start and end.
+     The reveal segments carry their own --seg-delay from the markup. */
+  .js-build.build-in .hero-content .hero-seg {
+    animation: hero-reveal-x var(--seg-dur, 0.5s) cubic-bezier(0.4, 0, 0.15, 1) var(--seg-delay, 0s) both;
   }
   .js-build.build-in #about h2::after {
-    animation: hero-line-draw 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) 1.05s both;
-  }
-  .js-build.build-in .hero-content .subheading {
-    animation: hero-wipe-right 0.6s ease-out 1.3s both;
+    animation: hero-line-draw 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 2.55s both;
   }
   .js-build.build-in .hero-content p.lead {
-    animation: hero-fade-up 0.55s ease-out 1.65s both;
+    animation: hero-fade-up 0.55s ease-out 3.85s both;
   }
   .js-build.build-in .hero-content .social-icon {
-    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 1.85s) both;
+    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 4.15s) both;
   }
   .js-build.build-in .hero-content .social-icon-label {
-    animation: hero-fade 0.35s ease-out var(--label-delay, 2s) both;
+    animation: hero-fade 0.35s ease-out var(--label-delay, 4.3s) both;
   }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon { --pop-delay: 1.85s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon { --pop-delay: 1.95s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon { --pop-delay: 2.05s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon { --pop-delay: 2.15s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 2.00s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 2.10s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 2.20s; }
-  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 2.30s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon { --pop-delay: 4.15s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon { --pop-delay: 4.25s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon { --pop-delay: 4.35s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon { --pop-delay: 4.45s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 4.30s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 4.40s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 4.50s; }
+  .js-build.build-in .hero-content .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 4.60s; }
 
   @media (min-width: 992px) {
     .js-build #sideNav .img-profile,
@@ -11449,26 +11450,24 @@ section.resume-section .resume-section-content {
       opacity: 0;
     }
     .js-build.build-in #sideNav .img-profile {
-      animation: hero-kenburns 1.2s ease-out 0.5s both;
+      animation: hero-kenburns 1.4s ease-out 0.8s both;
     }
     .js-build.build-in #navbarResponsive .nav-link {
-      animation: hero-slide-right 0.3s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 1.45s) both;
+      animation: hero-slide-right 0.3s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 1.75s) both;
     }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 1.45s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 1.51s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 1.57s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 1.63s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 1.69s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 1.75s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 1.81s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.87s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 1.75s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 1.81s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 1.87s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 1.93s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 1.99s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 2.05s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 2.11s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 2.17s; }
   }
 
-  /* Safety net: .build-done (from the script, or the 5s <head> failsafe)
-     forces the final state if the sequence ever stalls. */
-  .js-build.build-done .hero-content h1 .hero-text,
-  .js-build.build-done .hero-content h2 .hero-text,
-  .js-build.build-done .hero-content .subheading,
+  /* Safety net: .build-done (from the script, or the <head> failsafe) forces
+     the final state if the sequence ever stalls. */
+  .js-build.build-done .hero-content .hero-seg,
   .js-build.build-done .hero-content p.lead,
   .js-build.build-done .hero-content .social-icon,
   .js-build.build-done .hero-content .social-icon-label,
@@ -11492,11 +11491,6 @@ section.resume-section .resume-section-content {
 @keyframes hero-line-draw {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
-}
-@keyframes hero-wipe-right {
-  0%   { opacity: 0; clip-path: inset(0 100% 0 0); }
-  35%  { opacity: 1; }
-  100% { opacity: 1; clip-path: inset(0 0 0 0); }
 }
 @keyframes hero-fade-up {
   from { opacity: 0; transform: translateY(8px); }
