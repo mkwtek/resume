@@ -83,6 +83,10 @@
      rgba(255,255,255,0.5) over the #177082 bar, baked to a fixed value. */
   --nav-accent-line: #8bb8c1;
   --nav-divider-line: #3a8595;
+  /* Max width of the readable content column. The section content and the
+     mobile nav header both align to it, so the header and the page below it
+     share one set of gutters. Tune this one value. */
+  --content-max: 50rem;
 }
 
 *,
@@ -11006,7 +11010,12 @@ p.lead {
     align-items: center;
     justify-content: space-between;
     column-gap: 0.75rem;
-    padding: 0 0.9rem 0.5rem 1.15rem;
+    /* Brand + toggler align to the same content column as the page below;
+       the border-bottom still spans the full width (it's on .nav-header, which
+       is edge to edge - only the padding is inset). */
+    padding-left: max(1rem, calc((100% - var(--content-max)) / 2));
+    padding-right: max(1rem, calc((100% - var(--content-max)) / 2));
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--nav-accent-line);
   }
   /* Brand shrinks and truncates before it can push the toggler off the edge. */
@@ -11047,8 +11056,15 @@ p.lead {
   #sideNav .navbar-brand .img-profile {
     max-width: 10rem;
     max-height: 10rem;
-    border: 3px solid #6c757d;
-    box-shadow: 0 0 0 0.5rem rgba(255, 255, 255, 0.2);
+    /* Same framed treatment as the mobile hero photo (white gap, accent-teal
+       ring), plus an outer white ring so the teal ring doesn't vanish into the
+       teal sidebar, and a soft drop shadow for lift. */
+    border: none;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 0 0 7px #177082,
+      0 0 0 10px #fff,
+      0 4px 14px rgba(0, 0, 0, 0.22);
   }
   #sideNav .navbar-collapse {
     display: flex;
@@ -11142,9 +11158,12 @@ section.resume-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
   max-width: 75rem;
+  margin-inline: auto;
 }
 section.resume-section .resume-section-content {
   width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
 }
 
 /* This creates inconsistent section spacing vertically between the headings as its 100vh so overriding it in media query after for specific sections */
