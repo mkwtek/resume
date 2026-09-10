@@ -11270,12 +11270,6 @@ section.resume-section .resume-section-content {
   }
 }
 
-/* Centre the recommendation callouts in their column. */
-.recommendation {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* Mobile (below the 992px sidebar breakpoint): centre the section titles and the
    social row, and keep the social icons inside the gutters on narrow phones. */
 @media (max-width: 991.98px) {
