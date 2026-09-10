@@ -11046,6 +11046,10 @@ p.lead {
   align-items: center;
   gap: 0.4rem;
   transition: transform 0.2s ease;
+  /* Composite the item as its own layer so the hover scale transforms an already-  */
+  /* rendered bitmap instead of re-rasterising the icon-font glyph every frame -     */
+  /* without this the finer icons (the GitHub octocat) shimmer during the grow.      */
+  will-change: transform;
 }
 .social-icons .social-icon {
   display: inline-flex;
