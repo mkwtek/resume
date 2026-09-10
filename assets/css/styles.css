@@ -11073,6 +11073,10 @@ p.lead {
   color: #fff;
   border-radius: 100%;
   font-size: 1.5rem;
+  /* These are <a> tags, so they inherit the theme's underline for links. The
+     underline is white (matches the glyph) and sits right under the icon art,
+     so it reads as a broken line built into the icon. Kill it. */
+  text-decoration: none;
   transition: background-color 0.2s ease;
 }
 .social-icon-label {
