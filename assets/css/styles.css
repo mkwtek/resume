@@ -10985,12 +10985,14 @@ p.lead {
    bottom edge on #navbarResponsive. No border does double duty, so there's no
    padding for a border to skip and no line-jump on open. */
 @media (max-width: 991.98px) {
+  /* No horizontal padding on #sideNav: the gutter lives on the pieces that need
+     it (.nav-header), so the header line and the menu edges reach the screen
+     edges without any negative-margin breakout. No bottom padding either - the
+     header and the open menu each draw their own bottom edge. */
   #sideNav {
     display: block;
-    padding-left: 1.15rem;
-    padding-right: 0.9rem;
-    /* The header and the open menu each draw their own bottom edge, so #sideNav
-       itself needs no bottom padding. */
+    padding-left: 0;
+    padding-right: 0;
     padding-bottom: 0;
   }
   #sideNav .nav-header {
@@ -10998,7 +11000,7 @@ p.lead {
     align-items: center;
     justify-content: space-between;
     column-gap: 0.75rem;
-    padding-bottom: 0.5rem;
+    padding: 0 0.9rem 0.5rem 1.15rem;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   }
   /* Brand shrinks and truncates before it can push the toggler off the edge. */
@@ -11309,15 +11311,12 @@ section.resume-section .resume-section-content {
   /* Expanded mobile menu: full-bleed stacked rows, centred labels, hairline
      dividers between items - the portfolio site's treatment. */
   #sideNav #navbarResponsive {
-    margin-left: -1.15rem;
-    margin-right: -0.9rem;
     /* The menu's own bottom edge. #sideNav has no bottom padding, so this sits
        flush at the bottom of the teal bar. */
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   }
   #sideNav .navbar-nav {
     width: 100%;
-    margin-top: 0.4rem;
   }
   /* Hairline dividers between items; the .nav-header border and the
      #navbarResponsive border are the strong lines top and bottom of the menu. */
