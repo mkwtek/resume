@@ -11109,16 +11109,18 @@ p.lead {
 /* Hover / keyboard focus: the whole item lifts and grows a little, the icon fills   */
 /* with the accent teal, and the label darkens - inviting a click and giving the     */
 /* skimming reader a moment of focus on the links out.                               */
+/* :has(:focus-visible), not :focus-within - otherwise a mouse click leaves the      */
+/* link focused and the icon stays lifted and teal until you click elsewhere.        */
 .social-icon-item:hover,
-.social-icon-item:focus-within {
+.social-icon-item:has(:focus-visible) {
   transform: translateY(-4px) scale(1.06);
 }
 .social-icon-item:hover .social-icon,
-.social-icon-item:focus-within .social-icon {
+.social-icon-item:has(:focus-visible) .social-icon {
   background-color: #177082;
 }
 .social-icon-item:hover .social-icon-label,
-.social-icon-item:focus-within .social-icon-label {
+.social-icon-item:has(:focus-visible) .social-icon-label {
   color: #177082;
 }
 
@@ -11127,7 +11129,7 @@ p.lead {
     transition: none;
   }
   .social-icon-item:hover,
-  .social-icon-item:focus-within {
+  .social-icon-item:has(:focus-visible) {
     transform: none;
   }
 }
@@ -11416,6 +11418,22 @@ section.resume-section .resume-section-content {
   background: #177082;
 }
 
+/* Profile photo in the hero - mobile only (desktop shows it in the sidebar). */
+.hero-photo {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .hero-photo {
+    display: block;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 0 1.15rem;
+    box-shadow: 0 0 0 4px #fff, 0 4px 14px rgba(0, 0, 0, 0.16);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   /* Pieces travel in from off-axis; clip horizontally so none pushes out a
      scrollbar mid-run. overflow-x: clip leaves vertical flow untouched. */
@@ -11425,11 +11443,15 @@ section.resume-section .resume-section-content {
 
   /* Pre-paint hidden state, scoped to the hero so section titles elsewhere are
      untouched. */
+  .js-build .hero-content .hero-photo,
   .js-build .hero-content .hero-seg,
   .js-build .hero-content p.lead,
   .js-build .hero-content .social-icon,
   .js-build .hero-content .social-icon-label {
     opacity: 0;
+  }
+  .js-build.build-in .hero-content .hero-photo {
+    animation: hero-fade 0.45s ease-out 0.05s both;
   }
   .js-build #about h2::after {
     transform: scaleX(0);
@@ -11500,6 +11522,7 @@ section.resume-section .resume-section-content {
 
   /* Safety net: .build-done (from the script, or the <head> failsafe) forces
      the final state of the timed pieces if the sequence ever stalls. */
+  .js-build.build-done .hero-content .hero-photo,
   .js-build.build-done .hero-content .hero-seg,
   .js-build.build-done .hero-content p.lead,
   .js-build.build-done #sideNav .img-profile,
