@@ -3,6 +3,18 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- The nav links are plain "#section" anchors, so clicking one leaves e.g.     -->
+        <!-- "#experience" in the address bar and every later refresh jumps back there.  -->
+        <!-- Take manual control of scroll restoration and strip any hash before the     -->
+        <!-- browser acts on it, so a refresh always lands at the top. Nav clicks still  -->
+        <!-- scroll smoothly (CSS scroll-behavior); the hash they add is cleared on the  -->
+        <!-- next load.                                                                  -->
+        <script>
+            if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+            if (location.hash) {
+                history.replaceState(null, "", location.pathname + location.search);
+            }
+        </script>
         <meta name="description" content="Resume of Matt Whitcomb, a web developer and digital consultant specializing in CMS platforms, accessibility-first design, and nonprofit web development." />
         <meta name="author" content="Matt Whitcomb" />
         <title>Matt Whitcomb | Web Developer &amp; Digital Consultant</title>
