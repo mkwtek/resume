@@ -11440,6 +11440,16 @@ section.resume-section .resume-section-content {
       0 0 0 7px #177082,
       0 6px 20px rgba(0, 0, 0, 0.18);
   }
+
+  /* Centre the identity block (photo, name, title, accent rule, contact line)
+     to go with the centred photo; the bio paragraph stays left-aligned, since
+     centred running text is harder to read. */
+  #about .hero-content {
+    text-align: center;
+  }
+  #about .hero-content p.lead {
+    text-align: left;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
