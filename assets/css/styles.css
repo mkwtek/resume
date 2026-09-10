@@ -10967,31 +10967,41 @@ p.lead {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+/* On desktop the wrapper is transparent to layout, so the brand image and (hidden)
+   toggler behave as direct children of the vertical #sideNav. The mobile block
+   below turns it into the flex header row that owns the bottom separator. */
+#sideNav .nav-header {
+  display: contents;
+}
 #sideNav .navbar-nav .nav-item .nav-link {
   font-weight: 800;
   letter-spacing: 0.05rem;
   text-transform: uppercase;
 }
 
-/* Mobile header: brand name on the left, hamburger on the right, with real gutters -  */
-/* the brand can shrink (min-width: 0) rather than shove the toggler off the edge.      */
+/* Mobile nav: #sideNav stacks the header row and the collapse menu. The header
+   separator lives on .nav-header (always rendered, so it holds the same
+   position whether the menu is open or closed); the open menu draws its own
+   bottom edge on #navbarResponsive. No border does double duty, so there's no
+   padding for a border to skip and no line-jump on open. */
 @media (max-width: 991.98px) {
   #sideNav {
+    display: block;
+    padding-left: 1.15rem;
+    padding-right: 0.9rem;
+    /* The header and the open menu each draw their own bottom edge, so #sideNav
+       itself needs no bottom padding. */
+    padding-bottom: 0;
+  }
+  #sideNav .nav-header {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     column-gap: 0.75rem;
-    padding-left: 1.15rem;
-    padding-right: 0.9rem;
-    /* Separator under the header row (name + hamburger). When the menu is
-       collapsed this sits right under the header; when it's open the header
-       separator role passes to #navbarResponsive's border-top and this line
-       caps the bottom of the open menu - the portfolio site's treatment. */
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   }
-  /* Brand shrinks and truncates before it can push the toggler onto a second
-     row; only the collapse menu wraps below. */
+  /* Brand shrinks and truncates before it can push the toggler off the edge. */
   #sideNav .navbar-brand {
     flex: 1 1 auto;
     min-width: 0;
@@ -11005,14 +11015,6 @@ p.lead {
   }
   #sideNav .navbar-toggler {
     flex: 0 0 auto;
-  }
-  #sideNav #navbarResponsive {
-    flex-basis: 100%;
-    /* Keeps the header separator visible once the open menu pushes below it.
-       The margin-top replaces #sideNav's bottom padding, which the border-top
-       would otherwise skip - without it the line jumps up ~8px on open. */
-    margin-top: 0.5rem;
-    border-top: 2px solid rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -11309,16 +11311,16 @@ section.resume-section .resume-section-content {
   #sideNav #navbarResponsive {
     margin-left: -1.15rem;
     margin-right: -0.9rem;
-    /* Cancel #sideNav's bottom padding so the border-bottom hugs the last nav
-       item when the menu is open (matches the portfolio's flush accent line). */
-    margin-bottom: -0.5rem;
+    /* The menu's own bottom edge. #sideNav has no bottom padding, so this sits
+       flush at the bottom of the teal bar. */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   }
   #sideNav .navbar-nav {
     width: 100%;
     margin-top: 0.4rem;
   }
-  /* Hairline dividers between items; the strong lines top and bottom of the
-     menu are the header separator and the #sideNav border-bottom. */
+  /* Hairline dividers between items; the .nav-header border and the
+     #navbarResponsive border are the strong lines top and bottom of the menu. */
   #sideNav .navbar-nav .nav-item {
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
