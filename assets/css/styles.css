@@ -77,6 +77,12 @@
   --bs-link-hover-color: #125A68;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
+  /* Mobile nav accent lines (header separator + open-menu bottom cap). Solid,
+     not translucent: a translucent line composites differently where the teal
+     bar meets white page content, so the two lines wouldn't match. This is
+     rgba(255,255,255,0.5) over the #177082 bar, baked to a fixed value. */
+  --nav-accent-line: #8bb8c1;
+  --nav-divider-line: #3a8595;
 }
 
 *,
@@ -11001,7 +11007,7 @@ p.lead {
     justify-content: space-between;
     column-gap: 0.75rem;
     padding: 0 0.9rem 0.5rem 1.15rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 2px solid var(--nav-accent-line);
   }
   /* Brand shrinks and truncates before it can push the toggler off the edge. */
   #sideNav .navbar-brand {
@@ -11312,8 +11318,9 @@ section.resume-section .resume-section-content {
      dividers between items - the portfolio site's treatment. */
   #sideNav #navbarResponsive {
     /* The menu's own bottom edge. #sideNav has no bottom padding, so this sits
-       flush at the bottom of the teal bar. */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+       flush at the bottom of the teal bar. Same solid colour as .nav-header's
+       border so the two lines read identically. */
+    border-bottom: 2px solid var(--nav-accent-line);
   }
   #sideNav .navbar-nav {
     width: 100%;
@@ -11321,7 +11328,7 @@ section.resume-section .resume-section-content {
   /* Hairline dividers between items; the .nav-header border and the
      #navbarResponsive border are the strong lines top and bottom of the menu. */
   #sideNav .navbar-nav .nav-item {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid var(--nav-divider-line);
   }
   #sideNav .navbar-nav .nav-item:last-child {
     border-bottom: none;
