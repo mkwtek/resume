@@ -11169,6 +11169,44 @@ section.resume-section .resume-section-content {
   margin-inline: auto;
 }
 
+/* Experience / Education entry. Flat, single-column: role, org, dates, then
+   body - everything in normal flow, so the date always sits under the org
+   regardless of width. Replaces the theme's flex row with a right-aligned
+   date, which left a big gap on tablet and pushed the date below the bullets
+   on mobile. */
+.resume-entry {
+  margin-bottom: 3rem;
+}
+.resume-entry:last-child {
+  margin-bottom: 0;
+}
+.resume-entry > h3 {
+  margin-bottom: 0.1rem;
+}
+.resume-entry .subheading {
+  margin-bottom: 0.1rem;
+}
+.resume-entry-dates {
+  font-family: "Saira Extra Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--bs-primary);
+  margin-bottom: 1.1rem;
+}
+.resume-entry-quals {
+  margin: 0 0 0.65rem;
+  padding-left: 1.15rem;
+}
+.resume-entry-quals li {
+  margin-bottom: 0.15rem;
+}
+.resume-entry-note {
+  color: #585e64;
+  margin-bottom: 0;
+}
+
 /* This creates inconsistent section spacing vertically between the headings as its 100vh so overriding it in media query after for specific sections */
 @media (min-width: 768px) {
   section.resume-section {
