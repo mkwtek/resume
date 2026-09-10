@@ -11423,17 +11423,16 @@ section.resume-section .resume-section-content {
   display: none;
 }
 @media (max-width: 991.98px) {
-  /* Left-aligned to sit with the name and the rest of the hero text, which are
-     all left-aligned; a centred photo over left-aligned text reads disjointed.
-     Sized against the viewport so it stays large but never dominates a small
-     phone. */
+  /* Centred: at this size a left-aligned photo leaves a lopsided gap to its
+     right. Sized against the viewport so it stays large but never dominates a
+     small phone. */
   .hero-photo {
     display: block;
     width: min(14rem, 48vw);
     height: min(14rem, 48vw);
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 0 1.5rem;
+    margin: 0 auto 1.5rem;
     /* White gap, then the accent-teal ring, then a soft drop shadow - echoes
        the desktop sidebar photo's framed treatment in the accent colour. */
     box-shadow:
@@ -11444,12 +11443,6 @@ section.resume-section .resume-section-content {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Pieces travel in from off-axis; clip horizontally so none pushes out a
-     scrollbar mid-run. overflow-x: clip leaves vertical flow untouched. */
-  .js-build:not(.build-done) .hero-content {
-    overflow-x: clip;
-  }
-
   /* Pre-paint hidden state, scoped to the hero so section titles elsewhere are
      untouched. */
   .js-build .hero-content .hero-photo,
