@@ -11449,9 +11449,9 @@ section.resume-section .resume-section-content {
 
 /* ==========================================================================
    Landing hero animation
-   A quick staggered cascade on load: name and sidebar together, then title,
-   then the accent rule draws, then the contact line and bio; the link icons
-   reveal on scroll-into-view. Whole thing is in by ~1.3s.
+   A slow, uniform fade-and-rise, staggered top to bottom so the hero rolls in
+   as one piece. The accent rule draws; the link icons reveal on scroll. Every
+   element uses the same hero-rise keyframe and ease-out - no bounce, no snap.
 
    Gated by .js-build (on <html> before first paint). scripts.js adds .build-in
    to start it and .build-done to end it. No JS or prefers-reduced-motion:
@@ -11530,78 +11530,63 @@ section.resume-section .resume-section-content {
   .js-build .hero-content .hero-photo,
   .js-build .hero-content .hero-seg,
   .js-build .hero-content p.lead,
-  .js-build .hero-content .social-icon,
-  .js-build .hero-content .social-icon-label {
+  .js-build .hero-content .social-icon-item {
     opacity: 0;
-  }
-  .js-build.build-in .hero-content .hero-photo {
-    animation: hero-fade 0.45s ease-out 0.05s both;
   }
   .js-build #about h2::after {
     transform: scaleX(0);
     transform-origin: left center;
   }
 
-  /* .build-in on <html> is the "go" signal; each piece then runs its own
-     keyframes on a baked-in delay. `both` fill holds the start and end.
-     The reveal segments carry their own --seg-delay from the markup. */
-  .js-build.build-in .hero-content .hero-seg {
-    animation: hero-reveal-x var(--seg-dur, 0.45s) cubic-bezier(0.4, 0, 0.15, 1) var(--seg-delay, 0s) both;
+  /* One motion for the whole hero: a slow fade with a short rise, gentle
+     ease-out, no bounce, staggered top to bottom so it rolls in as a piece
+     rather than each element snapping in. .build-in on <html> is the "go". */
+  .js-build.build-in .hero-content .hero-photo {
+    animation: hero-rise 0.8s ease-out 0.15s both;
   }
-  /* The contact line reveals top-to-bottom and fades in, rather than the
-     left-to-right wipe the name and title use. */
-  .js-build.build-in .hero-content .subheading .hero-seg {
-    animation-name: hero-reveal-down;
-    animation-timing-function: ease-out;
+  .js-build.build-in .hero-content .hero-seg {
+    animation: hero-rise var(--seg-dur, 0.75s) ease-out var(--seg-delay, 0s) both;
   }
   .js-build.build-in #about h2::after {
-    animation: hero-line-draw 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) 0.7s both;
+    animation: hero-line-draw 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.75s both;
   }
   .js-build.build-in .hero-content p.lead {
-    animation: hero-fade-up 0.5s ease-out 1s both;
+    animation: hero-rise 0.75s ease-out 1s both;
   }
 
-  /* The link icons sit low in the hero (below the fold on phones), so they
-     don't run on the build-in timer. scripts.js adds .icons-in when they
-     scroll into view - or, if they're already visible at load, once the rest
-     of the hero has finished. Short internal stagger, no upfront offset. */
-  .js-build .social-icons.icons-in .social-icon {
-    animation: hero-pop 0.42s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 0s) both;
+  /* Link icons sit low in the hero (below the fold on phones), so they don't
+     run on the build-in timer - scripts.js adds .icons-in when they scroll
+     into view (or, if already visible at load, after the rest has settled).
+     Same slow rise, one item at a time. */
+  .js-build .social-icons.icons-in .social-icon-item {
+    animation: hero-rise 0.7s ease-out var(--item-delay, 0s) both;
   }
-  .js-build .social-icons.icons-in .social-icon-label {
-    animation: hero-fade 0.3s ease-out var(--label-delay, 0.1s) both;
-  }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon { --pop-delay: 0s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon { --pop-delay: 0.07s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon { --pop-delay: 0.14s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon { --pop-delay: 0.21s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 0.1s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 0.17s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 0.24s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 0.31s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) { --item-delay: 0s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) { --item-delay: 0.15s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) { --item-delay: 0.3s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) { --item-delay: 0.45s; }
 
-  /* The left sidebar comes in with the name: photo Ken-Burns in, and the nav
-     items cascade down the sidebar at a pace that lands the last one just as
-     the bio finishes, so the two columns settle together. */
+  /* Desktop sidebar: the photo rises in with the name, then the nav items
+     roll down the column, landing about when the bio settles. */
   @media (min-width: 992px) {
     .js-build #sideNav .img-profile,
     .js-build #navbarResponsive .nav-link {
       opacity: 0;
     }
     .js-build.build-in #sideNav .img-profile {
-      animation: hero-kenburns 1.35s ease-out 0.1s both;
+      animation: hero-rise 0.85s ease-out 0.15s both;
     }
     .js-build.build-in #navbarResponsive .nav-link {
-      animation: hero-slide-right 0.3s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 0.1s) both;
+      animation: hero-rise 0.6s ease-out var(--nav-delay, 0.2s) both;
     }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 0.10s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 0.26s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 0.42s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 0.58s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 0.73s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 0.89s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 1.05s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.20s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 0.20s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 0.32s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 0.44s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 0.56s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 0.68s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 0.80s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 0.92s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.04s; }
   }
 
   /* Safety net: .build-done (from the script, or the <head> failsafe) forces
@@ -11614,7 +11599,6 @@ section.resume-section .resume-section-content {
     opacity: 1 !important;
     animation: none !important;
     transform: none !important;
-    clip-path: none !important;
   }
   .js-build.build-done #about h2::after {
     animation: none !important;
@@ -11622,45 +11606,17 @@ section.resume-section .resume-section-content {
   }
   /* Icons are scroll-triggered, not timed - build-done only un-hides them (for
      the case where the script died entirely). It deliberately does NOT stop
-     their animation, so a normal scroll-into-view still pops them. */
-  .js-build.build-done .hero-content .social-icon,
-  .js-build.build-done .hero-content .social-icon-label {
+     their animation, so a normal scroll-into-view still rolls them in. */
+  .js-build.build-done .hero-content .social-icon-item {
     opacity: 1;
   }
 }
 
-@keyframes hero-reveal-x {
-  from { opacity: 1; clip-path: inset(0 100% 0 0); }
-  to   { opacity: 1; clip-path: inset(0 0 0 0); }
-}
-@keyframes hero-reveal-down {
-  0%   { opacity: 0; transform: translateY(-10px); clip-path: inset(0 0 100% 0); }
-  55%  { opacity: 1; }
-  100% { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0); }
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes hero-line-draw {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
-}
-@keyframes hero-fade-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes hero-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes hero-pop {
-  0%   { opacity: 0; transform: scale(0.3); }
-  60%  { opacity: 1; }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes hero-kenburns {
-  0%   { opacity: 0; transform: scale(1.12); }
-  35%  { opacity: 1; }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes hero-slide-right {
-  from { opacity: 0; transform: translateX(-24px); }
-  to   { opacity: 1; transform: translateX(0); }
 }

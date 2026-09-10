@@ -24,10 +24,9 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
-    // Landing hero animation: a quick staggered cascade on load - name and
-    // sidebar together, then title, accent rule, contact line and bio; the
-    // link icons reveal on scroll. Choreography is in styles.css; this just
-    // starts it and ends it.
+    // Landing hero animation: one slow uniform fade-and-rise per element,
+    // staggered top to bottom; the link icons reveal on scroll. Choreography
+    // is in styles.css; this just starts it and ends it.
     runBuildSequence();
 
     // Scroll reveal: flip .is-visible on each .reveal element once it enters view,
@@ -90,15 +89,15 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 // ===========================================================================
-// Landing "build" sequence
+// Landing hero animation controller
 // ---------------------------------------------------------------------------
-// The choreography lives in CSS (styles.css, "Landing build sequence"): each
-// hero piece has its own keyframes and a baked-in delay, all gated on
-// .js-build.build-in. This fires the starting gun, reveals the link icons when
-// they scroll into view (they're below the fold on phones), and ~2.3s later
-// adds .build-done to drop the hidden-state rules. prefers-reduced-motion:
-// skip straight to done. A <head> failsafe also adds .build-done after 3.2s in
-// case this never runs.
+// The choreography lives in CSS (styles.css, "Landing hero animation"): every
+// hero piece shares the hero-rise keyframe, gated on .js-build.build-in, with
+// a staggered delay. This fires the starting gun, reveals the link icons when
+// they scroll into view (below the fold on phones), and ~3s later adds
+// .build-done to drop the hidden-state rules. prefers-reduced-motion: skip
+// straight to done. A <head> failsafe also adds .build-done after 3.6s if this
+// never runs.
 // ===========================================================================
 function runBuildSequence() {
     var root = document.documentElement;
@@ -133,12 +132,12 @@ function runBuildSequence() {
                 // On screen within the first moment => it was visible at load,
                 // hold to ~1.2s so it lands just behind the rest. Otherwise the
                 // user scrolled to it: reveal now.
-                var wait = elapsed < 1100 ? Math.max(0, 1200 - elapsed) : 0;
+                var wait = elapsed < 1100 ? Math.max(0, 1600 - elapsed) : 0;
                 window.setTimeout(revealIcons, wait);
             }, { threshold: 0.2 });
             io.observe(icons);
         } else {
-            window.setTimeout(revealIcons, 1200);
+            window.setTimeout(revealIcons, 1600);
         }
     }
 
@@ -146,5 +145,5 @@ function runBuildSequence() {
     // drops the hidden-state and animation rules so nothing lingers.
     window.setTimeout(function () {
         root.classList.add('build-done');
-    }, 2300);
+    }, 3000);
 }
