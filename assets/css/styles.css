@@ -11195,12 +11195,24 @@ section.resume-section .resume-section-content {
   color: var(--bs-primary);
   margin-bottom: 1.1rem;
 }
-.resume-entry-quals {
-  margin: 0 0 0.65rem;
-  padding-left: 1.15rem;
+/* Group label inside an entry ("Freelance Web Development", "Independent
+   E-Commerce Venture"). Was <p class="mb-1 text-primary"><strong>. */
+.resume-group-label {
+  color: var(--bs-primary);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
 }
-.resume-entry-quals li {
-  margin-bottom: 0.15rem;
+/* The one bullet-list style for resume entries - job bullets and education
+   qualifications alike. Replaces the theme's "• " typed into <p> tags. */
+.resume-entry-list {
+  margin: 0 0 1rem;
+  padding-left: 1.35rem;
+}
+.resume-entry-list li {
+  margin-bottom: 0.4rem;
+}
+.resume-entry-list li:last-child {
+  margin-bottom: 0;
 }
 .resume-entry-note {
   color: #585e64;
