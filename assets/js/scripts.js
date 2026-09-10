@@ -24,10 +24,11 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
-    // Landing "build" sequence: the hero assembles itself on load. The name,
-    // title and contact line reveal left to right in segments with a beat
-    // between each; then the accent rule draws, the bio fades, the icons pop;
-    // the photo Ken-Burns and nav slide in alongside. Choreography is in
+    // Landing "build" sequence: the hero assembles itself on load. The name
+    // reveals left to right in two beats ("Matt" then "Whitcomb"); the title
+    // and contact line each reveal in one pass; then the accent rule draws, the
+    // bio fades, the icons pop. Only once that is done does the left sidebar
+    // come in: the photo Ken-Burns, then the nav items. Choreography is in
     // styles.css; this just starts it and ends it.
     runBuildSequence();
 
