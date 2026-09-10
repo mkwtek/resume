@@ -11013,8 +11013,8 @@ p.lead {
     /* Brand + toggler align to the same content column as the page below;
        the border-bottom still spans the full width (it's on .nav-header, which
        is edge to edge - only the padding is inset). */
-    padding-left: max(1rem, calc((100% - var(--content-max)) / 2));
-    padding-right: max(1rem, calc((100% - var(--content-max)) / 2));
+    padding-left: max(1.5rem, calc((100% - var(--content-max)) / 2));
+    padding-right: max(1.5rem, calc((100% - var(--content-max)) / 2));
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--nav-accent-line);
   }
@@ -11153,8 +11153,11 @@ p.lead {
 section.resume-section {
   display: flex;
   align-items: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  /* Phone/small-tablet side gutter. Above ~830px the content hits --content-max
+     and this stops mattering; the desktop rule below widens it for the sidebar
+     layout. */
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   padding-top: 5rem;
   padding-bottom: 5rem;
   max-width: 75rem;
