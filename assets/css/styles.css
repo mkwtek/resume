@@ -11043,6 +11043,7 @@ p.lead {
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
+  transition: transform 0.2s ease;
 }
 .social-icons .social-icon {
   display: inline-flex;
@@ -11054,14 +11055,39 @@ p.lead {
   color: #fff;
   border-radius: 100%;
   font-size: 1.5rem;
+  transition: background-color 0.2s ease;
 }
 .social-icon-label {
   font-size: 0.8rem;
   color: #6c757d;
   font-weight: 500;
+  transition: color 0.2s ease;
 }
-.social-icons .social-icon:hover {
+
+/* Hover / keyboard focus: the whole item lifts and grows a little, the icon fills   */
+/* with the accent teal, and the label darkens - inviting a click and giving the     */
+/* skimming reader a moment of focus on the links out.                               */
+.social-icon-item:hover,
+.social-icon-item:focus-within {
+  transform: translateY(-4px) scale(1.06);
+}
+.social-icon-item:hover .social-icon,
+.social-icon-item:focus-within .social-icon {
   background-color: #177082;
+}
+.social-icon-item:hover .social-icon-label,
+.social-icon-item:focus-within .social-icon-label {
+  color: #177082;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-icon-item {
+    transition: none;
+  }
+  .social-icon-item:hover,
+  .social-icon-item:focus-within {
+    transform: none;
+  }
 }
 
 section.resume-section {
