@@ -97,9 +97,9 @@ window.addEventListener('DOMContentLoaded', event => {
 // The choreography lives in CSS (styles.css, "Landing build sequence"): each
 // hero piece has its own keyframes and a baked-in delay, all gated on
 // .js-build.build-in. This fires the starting gun, reveals the link icons when
-// they scroll into view (they're below the fold on phones), and ~5.6s later
+// they scroll into view (they're below the fold on phones), and ~3.5s later
 // adds .build-done to drop the hidden-state rules. prefers-reduced-motion:
-// skip straight to done. A <head> failsafe also adds .build-done after 6.5s in
+// skip straight to done. A <head> failsafe also adds .build-done after 4.5s in
 // case this never runs.
 // ===========================================================================
 function runBuildSequence() {
@@ -133,13 +133,13 @@ function runBuildSequence() {
                 obs.disconnect();
                 var elapsed = Date.now() - start;
                 // On screen within the first moment => it was visible at load,
-                // hold to ~4.4s. Otherwise the user scrolled to it: reveal now.
-                var wait = elapsed < 1500 ? Math.max(0, 4400 - elapsed) : 0;
+                // hold to ~2.6s. Otherwise the user scrolled to it: reveal now.
+                var wait = elapsed < 1200 ? Math.max(0, 2600 - elapsed) : 0;
                 window.setTimeout(revealIcons, wait);
             }, { threshold: 0.2 });
             io.observe(icons);
         } else {
-            window.setTimeout(revealIcons, 4400);
+            window.setTimeout(revealIcons, 2600);
         }
     }
 
@@ -147,5 +147,5 @@ function runBuildSequence() {
     // drops the hidden-state and animation rules so nothing lingers.
     window.setTimeout(function () {
         root.classList.add('build-done');
-    }, 5600);
+    }, 3500);
 }

@@ -11421,7 +11421,7 @@ section.resume-section .resume-section-content {
      keyframes on a baked-in delay. `both` fill holds the start and end.
      The reveal segments carry their own --seg-delay from the markup. */
   .js-build.build-in .hero-content .hero-seg {
-    animation: hero-reveal-x var(--seg-dur, 0.5s) cubic-bezier(0.4, 0, 0.15, 1) var(--seg-delay, 0s) both;
+    animation: hero-reveal-x var(--seg-dur, 0.35s) cubic-bezier(0.4, 0, 0.15, 1) var(--seg-delay, 0s) both;
   }
   /* The contact line reveals top-to-bottom and fades in, rather than the
      left-to-right wipe the name and title use. */
@@ -11430,10 +11430,10 @@ section.resume-section .resume-section-content {
     animation-timing-function: ease-out;
   }
   .js-build.build-in #about h2::after {
-    animation: hero-line-draw 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 2.35s both;
+    animation: hero-line-draw 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) 1.45s both;
   }
   .js-build.build-in .hero-content p.lead {
-    animation: hero-fade-up 0.55s ease-out 3.9s both;
+    animation: hero-fade-up 0.4s ease-out 2.45s both;
   }
 
   /* The link icons sit low in the hero (below the fold on phones), so they
@@ -11441,41 +11441,41 @@ section.resume-section .resume-section-content {
      scroll into view - or, if they're already visible at load, once the rest
      of the hero has finished. Short internal stagger, no upfront offset. */
   .js-build .social-icons.icons-in .social-icon {
-    animation: hero-pop 0.45s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 0s) both;
+    animation: hero-pop 0.38s cubic-bezier(0.34, 1.6, 0.64, 1) var(--pop-delay, 0s) both;
   }
   .js-build .social-icons.icons-in .social-icon-label {
-    animation: hero-fade 0.35s ease-out var(--label-delay, 0.15s) both;
+    animation: hero-fade 0.3s ease-out var(--label-delay, 0.1s) both;
   }
   .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon { --pop-delay: 0s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon { --pop-delay: 0.09s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon { --pop-delay: 0.18s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon { --pop-delay: 0.27s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 0.12s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 0.21s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 0.30s; }
-  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 0.39s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon { --pop-delay: 0.07s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon { --pop-delay: 0.14s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon { --pop-delay: 0.21s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(1) .social-icon-label { --label-delay: 0.1s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(2) .social-icon-label { --label-delay: 0.17s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(3) .social-icon-label { --label-delay: 0.24s; }
+  .js-build .social-icons.icons-in .social-icon-item:nth-child(4) .social-icon-label { --label-delay: 0.31s; }
 
-  /* The left sidebar holds back until the main column is well underway (bio in,
-     icons starting), then the photo Ken-Burns in and the nav items slide in. */
+  /* The left sidebar comes in a touch behind the main column: the photo
+     Ken-Burns in and the nav items slide in. */
   @media (min-width: 992px) {
     .js-build #sideNav .img-profile,
     .js-build #navbarResponsive .nav-link {
       opacity: 0;
     }
     .js-build.build-in #sideNav .img-profile {
-      animation: hero-kenburns 1.4s ease-out 2.7s both;
+      animation: hero-kenburns 0.9s ease-out 1.3s both;
     }
     .js-build.build-in #navbarResponsive .nav-link {
-      animation: hero-slide-right 0.32s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 2.9s) both;
+      animation: hero-slide-right 0.26s cubic-bezier(0.3, 0.8, 0.3, 1) var(--nav-delay, 1.55s) both;
     }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 2.90s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 2.97s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 3.04s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 3.11s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 3.18s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 3.25s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 3.32s; }
-    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 3.39s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(1) .nav-link { --nav-delay: 1.55s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(2) .nav-link { --nav-delay: 1.60s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(3) .nav-link { --nav-delay: 1.65s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(4) .nav-link { --nav-delay: 1.70s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(5) .nav-link { --nav-delay: 1.75s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(6) .nav-link { --nav-delay: 1.80s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(7) .nav-link { --nav-delay: 1.85s; }
+    .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.90s; }
   }
 
   /* Safety net: .build-done (from the script, or the <head> failsafe) forces
