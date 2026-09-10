@@ -10921,7 +10921,9 @@ textarea.form-control-lg {
 }
 body {
   padding-top: 3.375rem;
-  color: #6c757d;
+  /* was #6c757d (4.7:1 on white, failed 4.5:1 on the tinted .recommendation panel). */
+  /* #585e64 clears 4.5:1 on both while keeping the theme's soft-grey body text.       */
+  color: #585e64;
 }
 
 @media (min-width: 992px) {
@@ -11195,3 +11197,36 @@ section.resume-section .resume-section-content {
 }
 /* ./Recommendation callout */
 
+
+/* Self-hosted fonts (were Google Fonts: "Muli"/Mulish + Saira Extra Condensed).
+   Same-origin woff2, so no render-blocking third-party stylesheet and no extra
+   DNS/TLS to fonts.googleapis.com / fonts.gstatic.com. The two primary faces are
+   <link rel=preload>ed in the head. */
+@font-face {
+  font-family: "Muli";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/mulish-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Muli";
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/mulish-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Saira Extra Condensed";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/saira-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Saira Extra Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/saira-700.woff2") format("woff2");
+}
