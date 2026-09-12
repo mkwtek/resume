@@ -11279,6 +11279,29 @@ section.resume-section .resume-section-content {
 }
 /* ./Skills Card Grid */
 
+/* Certification digital badges: linked to the issuing org's verification page */
+.cert-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.cert-badge {
+  display: inline-block;
+  line-height: 0;
+}
+.cert-badge img {
+  width: 6.5rem;
+  height: 6.5rem;
+  display: block;
+  transition: transform 0.2s ease;
+}
+.cert-badge:hover img,
+.cert-badge:has(:focus-visible) img {
+  transform: translateY(-4px) scale(1.06);
+}
+/* ./Certification badges */
+
 /* Recommendation / testimonial callout */
 .recommendation {
   max-width: 45rem;
