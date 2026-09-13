@@ -11309,8 +11309,8 @@ section.resume-section .resume-section-content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
 }
 .cert-badge img {
   width: 100%;
@@ -11325,20 +11325,27 @@ section.resume-section .resume-section-content {
 /* square box under object-fit: contain leaves less visible detail for a wide   */
 /* logo than a round one at the same box size.                                  */
 #certifications .cert-badge {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 5rem;
+  height: 5rem;
 }
 #certifications .cert-badge-wide {
-  width: 5.25rem;
-  height: 5.25rem;
+  width: 5.75rem;
+  height: 5.75rem;
+}
+/* Ecology specifically needs more than the general "wide" bump: its visible  */
+/* mark (see the source-image crop note above) reads smaller than MACS's even */
+/* at the same box size, so it gets its own larger tier. */
+#certifications .cert-badge-xl {
+  width: 6.5rem;
+  height: 6.5rem;
 }
 #certificates .cert-badge-wide {
-  width: 4.25rem;
-  height: 4.25rem;
+  width: 5rem;
+  height: 5rem;
 }
 #certificates .cert-badge-sm {
-  width: calc(3.5rem - 2px);
-  height: calc(3.5rem - 2px);
+  width: 3.625rem;
+  height: 3.625rem;
 }
 @media (max-width: 991.98px) {
   .cert-badges {
