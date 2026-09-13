@@ -11307,11 +11307,16 @@ section.resume-section .resume-section-content {
   line-height: 0;
 }
 .cert-badge img {
-  height: 5.5rem;
+  height: 4rem;
   width: auto;
   max-width: 12rem;
   display: block;
   transition: transform 0.2s ease;
+}
+@media (max-width: 991.98px) {
+  .cert-badges {
+    justify-content: center;
+  }
 }
 .cert-badge:hover img,
 .cert-badge:has(:focus-visible) img {
