@@ -11319,6 +11319,27 @@ section.resume-section .resume-section-content {
   display: block;
   transition: transform 0.2s ease;
 }
+/* Certifications reads slightly larger overall than Certificates (fewer,       */
+/* more prominent credentials vs. a longer list of course completions). Wide    */
+/* logos (.cert-badge-wide) get an extra bump on top of that, since a fixed     */
+/* square box under object-fit: contain leaves less visible detail for a wide   */
+/* logo than a round one at the same box size.                                  */
+#certifications .cert-badge {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+#certifications .cert-badge-wide {
+  width: 5.25rem;
+  height: 5.25rem;
+}
+#certificates .cert-badge-wide {
+  width: 4.25rem;
+  height: 4.25rem;
+}
+#certificates .cert-badge-sm {
+  width: calc(3.5rem - 2px);
+  height: calc(3.5rem - 2px);
+}
 @media (max-width: 991.98px) {
   .cert-badges {
     justify-content: center;
