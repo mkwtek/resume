@@ -11347,19 +11347,36 @@ section.resume-section .resume-section-content {
   width: 3.875rem;
   height: 3.875rem;
 }
-/* Below 1200px (tablet and small desktop), force a fixed grid instead of       */
-/* letting flex-wrap break wherever it runs out of row width. That left an      */
-/* orphaned last badge alone on its own row, left-aligned rather than centred   */
-/* (the old mobile-only centering rule didn't reach this range). Certifications' */
-/* 6 badges become a deliberate 3-over-3 block; Certificates' 4 become 2-over-2, */
-/* so there's never a partial row.                                              */
-@media (max-width: 1200px) {
+/* Certifications' 6 badges stop fitting on one line somewhere around 1289px    */
+/* (measured: at 992px plain flex-wrap breaks it 5-over-1, an orphan same as    */
+/* the problem below 991.98px). Force the same deliberate 3-over-3 grid down to */
+/* there, but LEFT-aligned rather than centered: the sidebar is still visible   */
+/* through this whole range and the rest of the page stays left-aligned, so a   */
+/* centered grid here looked out of place (this used to be centered from       */
+/* 1200px, which is what caused that). Certificates' 4 badges never wrap in     */
+/* this range (they're smaller), so it's left as plain flex-wrap until 991.98.  */
+@media (max-width: 1289px) {
   #certifications .cert-badges {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    justify-content: center;
+    /* CSS Grid stretches "auto" columns to fill the row by default (unlike     */
+    /* flexbox), so omitting justify-content here doesn't pack the badges left, */
+    /* it spreads the columns out and centers each badge in the leftover slack. */
+    /* Explicit "start" is what actually packs the grid at its content size and */
+    /* aligns the whole block flush left.                                      */
+    justify-content: start;
     justify-items: center;
     align-items: center;
+  }
+}
+/* Below 991.98px, the sidebar collapses into the hamburger menu and the rest   */
+/* of the page shifts to a centered, stacked mobile treatment, so the badge     */
+/* grids switch to centered here to match (Certificates joins the grid         */
+/* treatment for the first time at this breakpoint, since it didn't need it     */
+/* any earlier).                                                                */
+@media (max-width: 991.98px) {
+  #certifications .cert-badges {
+    justify-content: center;
   }
   #certificates .cert-badges {
     display: grid;
@@ -11383,6 +11400,19 @@ section.resume-section .resume-section-content {
   transform: translateY(-4px) scale(1.06);
 }
 /* ./Certification badges */
+
+/* Skills grid: the sidebar (visible from 992px up) eats a fixed chunk of the   */
+/* viewport that Bootstrap's row-cols-lg-3 doesn't know about, so 3 columns of  */
+/* skill cards are cramped from 992px right up until there's enough real width  */
+/* to spare again. Below 992px the sidebar collapses into the hamburger and     */
+/* content gets the full viewport back, which is why row-cols-md-2 (768-991px,  */
+/* no sidebar) already reads fine without this override. Force 2 columns for    */
+/* this specific sidebar-present range instead of the usual 3.                  */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .row-cols-lg-3 > * {
+    width: 50%;
+  }
+}
 
 /* Recommendation / testimonial callout */
 .recommendation {
