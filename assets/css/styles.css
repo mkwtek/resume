@@ -11279,11 +11279,14 @@ section.resume-section .resume-section-content {
 }
 /* ./Skills Card Grid */
 
-/* Certification digital badges: linked to the issuing org's verification page */
+/* Certification digital badges: linked to the issuing org's verification page.  */
+/* Fixed height, auto width, so round seals (Scrum, MTA) and non-square logos   */
+/* keep their real proportions instead of being squashed into a uniform square. */
 .cert-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  align-items: flex-end;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 .cert-badge {
@@ -11291,8 +11294,9 @@ section.resume-section .resume-section-content {
   line-height: 0;
 }
 .cert-badge img {
-  width: 6.5rem;
-  height: 6.5rem;
+  height: 5.5rem;
+  width: auto;
+  max-width: 12rem;
   display: block;
   transition: transform 0.2s ease;
 }
