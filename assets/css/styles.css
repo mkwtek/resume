@@ -11309,8 +11309,8 @@ section.resume-section .resume-section-content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
+  width: 4.5rem;
+  height: 4.5rem;
 }
 .cert-badge img {
   width: 100%;
@@ -11325,31 +11325,57 @@ section.resume-section .resume-section-content {
 /* square box under object-fit: contain leaves less visible detail for a wide   */
 /* logo than a round one at the same box size.                                  */
 #certifications .cert-badge {
-  width: 5rem;
-  height: 5rem;
+  width: 5.5rem;
+  height: 5.5rem;
 }
 #certifications .cert-badge-wide {
-  width: 5.75rem;
-  height: 5.75rem;
+  width: 6.25rem;
+  height: 6.25rem;
 }
 /* Ecology specifically needs more than the general "wide" bump: its visible  */
 /* mark (see the source-image crop note above) reads smaller than MACS's even */
 /* at the same box size, so it gets its own larger tier. */
 #certifications .cert-badge-xl {
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 7rem;
+  height: 7rem;
 }
 #certificates .cert-badge-wide {
-  width: 5rem;
-  height: 5rem;
+  width: 5.5rem;
+  height: 5.5rem;
 }
 #certificates .cert-badge-sm {
-  width: 3.625rem;
-  height: 3.625rem;
+  width: 3.875rem;
+  height: 3.875rem;
 }
-@media (max-width: 991.98px) {
-  .cert-badges {
+/* Below 1200px (tablet and small desktop), force a fixed grid instead of       */
+/* letting flex-wrap break wherever it runs out of row width. That left an      */
+/* orphaned last badge alone on its own row, left-aligned rather than centred   */
+/* (the old mobile-only centering rule didn't reach this range). Certifications' */
+/* 6 badges become a deliberate 3-over-3 block; Certificates' 4 become 2-over-2, */
+/* so there's never a partial row.                                              */
+@media (max-width: 1200px) {
+  #certifications .cert-badges {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
     justify-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+  #certificates .cert-badges {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+}
+/* At true small-phone widths, 3 columns of these badge sizes runs wider than   */
+/* the screen (verified: badges started clipping off the left edge at 320px).   */
+/* Drop to 2 columns here instead: 6 badges / 2 columns is still an even 3 rows */
+/* of 2, so there's no orphan even at this narrower column count.              */
+@media (max-width: 420px) {
+  #certifications .cert-badges {
+    grid-template-columns: repeat(2, auto);
   }
 }
 .cert-badge:hover img,
