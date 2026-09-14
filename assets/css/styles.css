@@ -11304,6 +11304,12 @@ section.resume-section .resume-section-content {
   align-items: center;
   gap: 1.25rem;
   margin-bottom: 1.5rem;
+  /* The badge boxes already start at the exact same left edge as the section  */
+  /* heading (verified in the DOM), but the round/seal artwork inside them     */
+  /* doesn't fill its square box edge-to-edge the way the heading's text does, */
+  /* so it visually reads as sitting slightly left of the heading. Small manual */
+  /* nudge to correct for that optical difference.                             */
+  margin-left: 0.4rem;
 }
 .cert-badge {
   display: inline-flex;
