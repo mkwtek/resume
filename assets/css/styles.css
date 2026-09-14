@@ -11311,6 +11311,11 @@ section.resume-section .resume-section-content {
   /* nudge to correct for that optical difference.                             */
   margin-left: 0.4rem;
 }
+/* Certificates' logos (wordmarks/rectangular brand marks, not round seals) */
+/* needed 2px more than the general nudge above to read as aligned. */
+#certificates .cert-badges {
+  margin-left: 0.525rem;
+}
 .cert-badge {
   display: inline-flex;
   align-items: center;
