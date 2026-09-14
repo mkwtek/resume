@@ -11541,6 +11541,13 @@ section.resume-section .resume-section-content {
        flush at the bottom of the teal bar. Same solid colour as .nav-header's
        border so the two lines read identically. */
     border-bottom: 2px solid var(--nav-accent-line);
+    /* #sideNav carries Bootstrap's fixed-top class at every width, so this menu
+       is fixed in place on mobile too, outside the page's own scrolling. Fallback
+       only - scripts.js sets this to the exact space left below .nav-header, but
+       without a cap at all a short viewport (a phone in landscape) could run the
+       menu taller than the screen with no way to reach whatever's cut off. */
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
   }
   #sideNav .navbar-nav {
     width: 100%;

@@ -86,6 +86,32 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    // #sideNav carries Bootstrap's fixed-top class at every width, not just the
+    // desktop sidebar layout - so on mobile the expanded #navbarResponsive menu
+    // (six links) is also fixed in place, outside the page's own scrolling. With
+    // six items it comfortably fits most phones, but on a short viewport (a
+    // phone in landscape) it can run taller than the screen with no way to
+    // reach whatever's cut off - the same trap the portfolio site had. Cap it to
+    // the space actually left below the header row, and styles.css pairs that
+    // with overflow-y: auto so once it's capped, it scrolls internally instead
+    // of just losing its bottom links.
+    const navHeader = document.querySelector('#sideNav .nav-header');
+    const navResponsive = document.querySelector('#navbarResponsive');
+    function positionNavCollapse() {
+        if (navHeader && navResponsive && window.getComputedStyle(navbarToggler).display !== 'none') {
+            navResponsive.style.maxHeight = (window.innerHeight - navHeader.getBoundingClientRect().bottom) + 'px';
+        }
+    }
+    positionNavCollapse();
+    if (navResponsive) {
+        navResponsive.addEventListener('show.bs.collapse', positionNavCollapse);
+    }
+    let navPosRaf;
+    window.addEventListener('resize', () => {
+        cancelAnimationFrame(navPosRaf);
+        navPosRaf = requestAnimationFrame(positionNavCollapse);
+    });
+
 });
 
 // ===========================================================================
