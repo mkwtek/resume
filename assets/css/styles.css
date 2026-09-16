@@ -11534,6 +11534,15 @@ section.resume-section .resume-section-content {
   .resume-section-content > h2.mb-5 {
     text-align: center;
   }
+  /* PDF Resume and Portfolio are single-CTA sections (title, one line of
+     instruction, one link/button) - unlike Experience or Certifications, there's
+     no list or multi-column content that needs to stay left-aligned, so the
+     whole block centers here instead of just its title. .btn and the plain
+     underline-link are both inline-level, so text-align: center on the parent
+     centers them horizontally too, not just the text lines. */
+  .resume-section-short .resume-section-content {
+    text-align: center;
+  }
   .social-icons {
     justify-content: center;
     flex-wrap: wrap;
