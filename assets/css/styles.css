@@ -11183,6 +11183,14 @@ section.resume-section {
   max-width: 75rem;
   margin-inline: auto;
 }
+/* Short CTA-style sections (Certifications, Certificates, PDF Resume, Portfolio) don't  */
+/* need the same generous padding as content-heavy sections - at the base 5rem/5rem,    */
+/* two of them back to back (PDF Resume -> Portfolio) left ~10rem of blank space between */
+/* the button and the next heading. */
+section.resume-section.resume-section-short {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
 section.resume-section .resume-section-content {
   width: 100%;
   max-width: var(--content-max);
