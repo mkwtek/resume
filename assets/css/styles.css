@@ -2899,6 +2899,21 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #177082;
 }
 
+/* Small "opens in a new tab" cue on the PDF Resume and View Portfolio buttons - both */
+/* actually open something else in a new tab, so both get the same visual signal.     */
+.ext-icon {
+  margin-left: 0.5rem;
+  font-size: 0.8em;
+}
+
+/* h3.mb-0 directly above these buttons has no bottom margin, so without this the      */
+/* button sat right up against the instruction text above it with almost no breathing */
+/* room. */
+#pdf .mb-3,
+#portfolio .mb-3 {
+  margin-top: 1rem;
+}
+
 .btn-secondary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #6c757d;
