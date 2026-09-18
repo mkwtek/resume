@@ -11257,7 +11257,7 @@ section.resume-section .resume-section-content {
 }
 .resume-entry-note {
   color: #585e64;
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
 }
 
 /* This creates inconsistent section spacing vertically between the headings as its 100vh so overriding it in media query after for specific sections */
