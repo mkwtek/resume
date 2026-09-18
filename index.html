@@ -21,9 +21,16 @@
             // (see styles.css ".js-build"). Same deal: no JS, no hidden state.
             document.documentElement.classList.add("js-build");
             // Failsafe: if scripts.js never loads or runs, reveal the hero anyway.
-            // runBuildSequence adds .build-done itself once it finishes.
-            setTimeout(function () {
-                document.documentElement.classList.add("build-done");
+            // A dedicated "build-failsafe" class, not "build-done" - runBuildSequence
+            // adds build-done itself on normal completion, and that class is also used
+            // for a 3s "the timed pieces are done animating" cleanup that has nothing
+            // to do with whether scripts.js loaded at all. If this failsafe reused
+            // build-done, it couldn't be told apart from that normal completion, and
+            // the (scroll-triggered, not timed) social icons rule couldn't safely key
+            // off it. runBuildSequence cancels this timer as soon as it confirms it's
+            // actually running, so on a normal working page it never fires at all.
+            window.__buildFailsafeTimer = setTimeout(function () {
+                document.documentElement.classList.add("build-failsafe");
             }, 3600);
         </script>
         <meta name="description" content="Resume of Matt Whitcomb, a web developer and digital consultant specializing in front-end development, CMS platform management, accessibility-first design, and nonprofit web development." />

@@ -11779,25 +11779,41 @@ section.resume-section .resume-section-content {
     .js-build.build-in #navbarResponsive .nav-item:nth-child(8) .nav-link { --nav-delay: 1.04s; }
   }
 
-  /* Safety net: .build-done (from the script, or the <head> failsafe) forces
-     the final state of the timed pieces if the sequence ever stalls. */
+  /* Safety net for the timed pieces: .build-done is the normal 3s "the timed
+     pieces are done animating" signal from the script; .build-failsafe is the
+     separate <head> timer for scripts.js never loading at all (cancelled as
+     soon as the real script confirms it's running - see its cancellation in
+     runBuildSequence). Either one forces the final state if the sequence
+     ever stalls or never started. */
   .js-build.build-done .hero-content .hero-photo,
   .js-build.build-done .hero-content .hero-seg,
   .js-build.build-done .hero-content p.lead,
   .js-build.build-done #sideNav .img-profile,
-  .js-build.build-done #navbarResponsive .nav-link {
+  .js-build.build-done #navbarResponsive .nav-link,
+  .js-build.build-failsafe .hero-content .hero-photo,
+  .js-build.build-failsafe .hero-content .hero-seg,
+  .js-build.build-failsafe .hero-content p.lead,
+  .js-build.build-failsafe #sideNav .img-profile,
+  .js-build.build-failsafe #navbarResponsive .nav-link {
     opacity: 1 !important;
     animation: none !important;
     transform: none !important;
   }
-  .js-build.build-done #about h2::after {
+  .js-build.build-done #about h2::after,
+  .js-build.build-failsafe #about h2::after {
     animation: none !important;
     transform: scaleX(1) !important;
   }
-  /* Icons are scroll-triggered, not timed - build-done only un-hides them (for
-     the case where the script died entirely). It deliberately does NOT stop
-     their animation, so a normal scroll-into-view still rolls them in. */
-  .js-build.build-done .hero-content .social-icon-item {
+  /* Icons are scroll-triggered, not timed, so they deliberately do NOT key off
+     .build-done - that class also gets added by an ordinary 3s "the timed
+     pieces are done" signal that has nothing to do with whether the icons'
+     own scroll-triggered reveal has happened yet, and forcing them here too
+     used to cause a visible flash (snap to visible, then reset back to 0 and
+     re-animate moments later when the user actually scrolled to them). Only
+     .build-failsafe - genuinely meaning scripts.js never ran at all - un-hides
+     them early; it deliberately does NOT stop their animation, so a normal
+     scroll-into-view still rolls them in if it does eventually run. */
+  .js-build.build-failsafe .hero-content .social-icon-item {
     opacity: 1;
   }
 }

@@ -129,8 +129,21 @@ function runBuildSequence() {
     var root = document.documentElement;
     if (!root.classList.contains('js-build')) return;
 
+    // We're actually running, so the <head> failsafe (for scripts.js never
+    // loading at all) is no longer needed - cancel it. Otherwise, on a normal
+    // page where the user simply hasn't scrolled to the icons yet by 3.6s,
+    // that timer would still fire and force them visible early, then the
+    // real scroll-triggered reveal would reset and replay moments later.
+    if (window.__buildFailsafeTimer) {
+        clearTimeout(window.__buildFailsafeTimer);
+    }
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         root.classList.add('build-done');
+        // Icons are keyed off .icons-in, not .build-done (see the CSS), so with
+        // no animation to skip past, just reveal them immediately here too.
+        var reducedIcons = document.querySelector('#about .social-icons');
+        if (reducedIcons) reducedIcons.classList.add('icons-in');
         return;
     }
 
@@ -168,7 +181,13 @@ function runBuildSequence() {
     }
 
     // End once the last piece has landed (see the delays in styles.css), which
-    // drops the hidden-state and animation rules so nothing lingers.
+    // drops the hidden-state and animation rules so nothing lingers. Deliberately
+    // does NOT touch the icons - they're revealed on their own schedule by the
+    // IntersectionObserver above (or its no-IntersectionObserver timeout), which
+    // may well still be waiting on a scroll at this point. Forcing them here too
+    // used to cause a visible flash: opacity snapped to 1 by this timer, then
+    // reset back to 0 and re-animated moments later when the user actually
+    // scrolled to them and the real reveal fired.
     window.setTimeout(function () {
         root.classList.add('build-done');
     }, 3000);
