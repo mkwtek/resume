@@ -11318,6 +11318,25 @@ section.resume-section .resume-section-content {
   left: 0;
   color: var(--bs-primary);
 }
+
+/* Full-width card (matches the portfolio site's .skill-category-wide): the row-cols-*
+   grid gives every .col an equal share by default, this overrides just this one back
+   to 100% so it spans the whole row instead of sitting the same width as a 5-item
+   card next to a 12-item one. */
+@media (min-width: 992px) {
+  .skill-card-wide {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Flows the wide card's longer list into columns instead of one long single column
+   stretching the full card width - same treatment as the portfolio site's
+   .skill-list-cols. */
+.skill-card-list-cols {
+  columns: 3;
+  column-gap: 2rem;
+}
 /* ./Skills Card Grid */
 
 /* Certification digital badges: linked to the issuing org's verification page.  */
