@@ -2897,6 +2897,9 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #177082;
   --bs-btn-disabled-border-color: #177082;
+  /* No hover fade (Bootstrap's .btn fades bg/border/colour over 0.15s). Same intermittent */
+  /* Chrome flash as the social icons, so the hover/active shades swap instantly.          */
+  transition: none;
 }
 
 /* Small "opens in a new tab" cue on the PDF Resume and View Portfolio buttons - both */
@@ -11133,7 +11136,9 @@ p.lead {
      underline is white (matches the glyph) and sits right under the icon art,
      so it reads as a broken line built into the icon. Kill it. */
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  /* No background-color fade: in Chrome a fade on a solid fill like this intermittently  */
+  /* flashed for a few milliseconds on hover-in and hover-out (found and A/B tested on    */
+  /* the portfolio site, then seen here too). The swap is instant instead.                */
 }
 .social-icon-label {
   font-size: 0.8rem;
